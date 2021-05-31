@@ -32,3 +32,12 @@ main {
 .blog-link:hover {
   color: #bbdefb !important;
 }
+
+.btn-back {
+  background-color: #2196f3 !important;
+  /* transform: scale(0.9); */
+}
+
+.btn-back:hover {
+  background-color: #64b5f6 !important;
+}
