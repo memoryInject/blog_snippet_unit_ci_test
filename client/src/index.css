@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #212121;
+  color: #fafafa;
+}
+
+main {
+  min-height: 80vh;
+}
+
+.sidenav,
+.sidenav li a {
+  color: #fafafa !important;
+  background-color: #212121 !important;
+}
+.sidenav li:hover a:hover {
+  background-color: #512da8 !important;
+}
+
+.micon {
+  position: relative;
+  top: 4px; /*Change this to adjust the icon*/
+}
+
+.blog-link {
+  color: #64b5f6 !important;
+}
+
+.blog-link:hover {
+  color: #bbdefb !important;
+}
