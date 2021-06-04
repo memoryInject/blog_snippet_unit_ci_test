@@ -5,15 +5,38 @@
   "main": "server.js",
   "scripts": {
     "start": "node server/server",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server/server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "migrate": "node-pg-migrate",
+    "migrate-up": "npm run migrate up",
+    "migrate-up-one": "npm run migrate-up 1",
+    "migrate-down": "npm run migrate down",
+    "migrate-down-all": "npm run migrate-down 0",
+    "create-table-users": "npm run migrate create table users",
+    "create-table-blogs": "npm run migrate create table blogs",
+    "insert-user-data": "node ./data/insert-users.js",
+    "destroy-user-data": "node ./data/insert-users.js -d",
+    "insert-blog-data": "node ./data/insert-blogs.js",
+    "destroy-blog-data": "node ./data/insert-blogs.js -d",
+    "data-import": "npm run insert-user-data && npm run insert-blog-data",
+    "data-destroy": "npm run destroy-user-data && npm run destroy-blog-data"
   },
   "author": "Mahesh",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "dedent": "^0.7.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "jest": "^27.0.3",
+    "node-pg-migrate": "^5.9.0",
+    "pg": "^8.6.0",
+    "pg-format": "^1.0.4",
+    "supertest": "^6.1.3"
   },
   "devDependencies": {
     "concurrently": "^6.2.0",

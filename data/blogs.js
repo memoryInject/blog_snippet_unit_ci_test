@@ -1,0 +1,23 @@
+module.exports = `
+  DELETE FROM blogs;
+  insert into blogs (title, content, user_id) values ('Right-sized solution-oriented application', 'Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio.', 2);
+  insert into blogs (title, content, user_id) values ('Re-engineered neutral encryption', 'Nullam varius. Nulla facilisi. Cras non velit nec nisi vulputate nonummy.', 3);
+  insert into blogs (title, content, user_id) values ('User-centric fault-tolerant data-warehouse', 'Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 4);
+  insert into blogs (title, content, user_id) values ('Future-proofed dynamic parallelism', 'Maecenas leo odio, condimentum luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc.', 5);
+  insert into blogs (title, content, user_id) values ('Mandatory non-volatile pricing structure', 'Maecenas pulvinar lobortis est. Phasellus sit amet erat. Nulla tempus.', 6);
+  insert into blogs (title, content, user_id) values ('Intuitive analyzing software', 'In hac habitasse platea dictumst.', 7);
+  insert into blogs (title, content, user_id) values ('Organized dedicated array', 'Nullam molestie nibh in lectus.', 8);
+  insert into blogs (title, content, user_id) values ('Cloned 4th generation function', 'Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 9);
+  insert into blogs (title, content, user_id) values ('Extended tangible contingency', 'Duis mattis egestas metus. Aenean fermentum.', 10);
+  insert into blogs (title, content, user_id) values ('Organized national success', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante.', 1);
+  insert into blogs (title, content, user_id) values ('Diverse mobile access', 'Proin at turpis a pede posuere nonummy. Integer non velit. Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi.', 2);
+  insert into blogs (title, content, user_id) values ('Operative asymmetric knowledge user', 'Mauris ullamcorper purus sit amet nulla.', 3);
+  insert into blogs (title, content, user_id) values ('Intuitive eco-centric artificial intelligence', 'Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis.', 4);
+  insert into blogs (title, content, user_id) values ('Quality-focused bandwidth-monitored service-desk', 'Donec semper sapien a libero.', 5);
+  insert into blogs (title, content, user_id) values ('Monitored neutral system engine', 'Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo.', 6);
+  insert into blogs (title, content, user_id) values ('Customer-focused intangible customer loyalty', 'Morbi a ipsum.', 7);
+  insert into blogs (title, content, user_id) values ('Organized transitional pricing structure', 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio.', 8);
+  insert into blogs (title, content, user_id) values ('Operative non-volatile groupware', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem. Sed sagittis.', 9);
+  insert into blogs (title, content, user_id) values ('Quality-focused static hardware', 'Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 10);
+  insert into blogs (title, content, user_id) values ('Ameliorated full-range encryption', 'Sed accumsan felis. Ut at dolor quis odio consequat varius.', 1);
+`;
