@@ -11,7 +11,7 @@ const router = express.Router();
 router.get(
   '/',
   asyncHandler(async (req, res) => {
-    const blogs = await BlogRepo.find({});
+    const blogs = await BlogRepo.getAllBlogsWithUser();
 
     res.json(blogs);
   })
@@ -59,12 +59,60 @@ router.get(
 router.get(
   '/:id',
   asyncHandler(async (req, res) => {
-    const blog = await BlogRepo.findById(req.params.id);
+    const blog = await BlogRepo.getBlogByIdWithUser(req.params.id);
     if (blog) {
       res.json(blog);
     } else {
       res.status(404);
       throw new Error('Blog not found');
+    }
+  })
+);
+
+// @dec Create a single blog
+// @route POST /api/blogs/
+// @access Private
+router.post(
+  '/',
+  asyncHandler(async (req, res) => {
+    const blog = await BlogRepo.insertBlog(req.body);
+    if (blog) {
+      res.json(blog);
+    } else {
+      res.status(404);
+      throw new Error('Blog can not create');
+    }
+  })
+);
+
+// @dec update a single blog
+// @route PUT /api/blogs/:id
+// @access Private
+router.put(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const blog = await BlogRepo.updateBlog(req.params.id, req.body);
+    if (blog) {
+      res.json(blog);
+    } else {
+      res.status(404);
+      throw new Error('Blog can not update');
+    }
+  })
+);
+
+// @dec delete a single blog
+// @route DELETE /api/blogs/:id
+// @access Private
+router.delete(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const blog = await BlogRepo.deleteBlogById(req.params.id);
+    if (blog) {
+      res.json(blog);
+    } else {
+      res.status(404);
+      throw new Error('Blog can not update');
     }
   })
 );

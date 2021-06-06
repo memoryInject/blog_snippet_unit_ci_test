@@ -35,4 +35,37 @@ router.get(
   })
 );
 
+// @dec creata a user
+// @route POST /api/users
+// @access Public
+router.post(
+  '/',
+  asyncHandler(async (req, res) => {
+    const users = await UserRepo.createUser(req.body);
+    res.json(users);
+  })
+);
+
+// @dec update a user
+// @route PUT /api/users/id
+// @access Private
+router.put(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const users = await UserRepo.updateUser(req.params.id, req.body);
+    res.json(users);
+  })
+);
+
+// @dec delte a user
+// @route DELETE /api/users/:id
+// @access Private
+router.delete(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const users = await UserRepo.deleteUser(req.params.id);
+    res.json(users);
+  })
+);
+
 module.exports = router;

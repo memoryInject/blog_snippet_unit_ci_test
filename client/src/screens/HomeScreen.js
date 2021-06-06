@@ -18,7 +18,7 @@ const HomeScreen = () => {
       <ul>
         {blogs.map((blog) => (
           <li key={blog.id}>
-            <Blog title={blog.title} author='author' blogId={blog.id} />
+            <Blog title={blog.title} author={blog.username} blogId={blog.id} />
           </li>
         ))}
       </ul>

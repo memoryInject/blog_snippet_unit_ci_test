@@ -148,6 +148,8 @@ class Repo {
       limitValue
     );
 
+    // console.log(sql);
+
     if (returnSql) {
       return sql;
     }
@@ -173,11 +175,12 @@ class Repo {
     let columns = [];
     let sql;
     const globalColumns = this.columns;
+    const globalTable = this.table;
 
     for (let key in data) {
       globalColumns.filter((col) => {
-        if (key === col) {
-          columns.push(col);
+        if (key === col.slice(globalTable.length + 1)) {
+          columns.push(key);
           values.push(data[key]);
         }
       });
@@ -190,6 +193,8 @@ class Repo {
       values
     );
 
+    // console.log(sql);
+
     const { rows } = await pool.query(sql);
 
     return toCamelCase(rows)[0];
@@ -200,11 +205,12 @@ class Repo {
     let values = [];
     let sql;
     const globalColumns = this.columns;
+    const globalTable = this.table;
 
     for (let key in data) {
       globalColumns.filter((col) => {
-        if (key === col) {
-          values.push(`${col} = '${data[key]}'`);
+        if (key === col.slice(globalTable.length + 1)) {
+          values.push(`${key} = '${data[key]}'`);
         }
       });
     }
@@ -229,6 +235,14 @@ class Repo {
     const { rows } = await pool.query(sql);
 
     return toCamelCase(rows)[0];
+  }
+
+  async countRows() {
+    let sql;
+    sql = format('SELECT COUNT(*) FROM %I;', this.table);
+
+    const { rows } = await pool.query(sql);
+    return rows[0];
   }
 
   getColumns() {

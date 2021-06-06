@@ -32,9 +32,9 @@ const BlogScreen = ({ match }) => {
           <span className='card-title'>
             <h4 className='center-align'>{blog.title}</h4>
           </span>
-          <p style={{ fontSize: '1.2rem' }}>{blog.body}</p>
+          <p style={{ fontSize: '1.2rem' }}>{blog.content}</p>
           <br></br>
-          <p>by author</p>
+          <p>by {blog.username}</p>
         </div>
       </div>
     </>
