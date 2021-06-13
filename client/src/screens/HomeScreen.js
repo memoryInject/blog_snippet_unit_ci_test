@@ -1,27 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { listBlogs } from '../actions/blogActions';
 import Blog from '../components/Blog';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+
 const HomeScreen = () => {
-  const [blogs, setBlogs] = useState([]);
+  const dispatch = useDispatch();
+
+  const blogList = useSelector((state) => state.blogList);
+
+  const { loading, error, blogs } = blogList;
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      const { data } = await axios.get('/api/blogs');
-      setBlogs(data);
-    };
-    fetchBlogs();
-  }, []);
+    dispatch(listBlogs());
+  }, [dispatch]);
 
   return (
     <div>
       <h3 className='center-align'>Blogs</h3>
-      <ul>
-        {blogs.map((blog) => (
-          <li key={blog.id}>
-            <Blog title={blog.title} author={blog.username} blogId={blog.id} />
-          </li>
-        ))}
-      </ul>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message type='red'>{error}</Message>
+      ) : (
+        <ul>
+          {blogs.map((blog) => (
+            <li key={blog.id}>
+              <Blog
+                title={blog.title}
+                author={blog.username}
+                blogId={blog.id}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

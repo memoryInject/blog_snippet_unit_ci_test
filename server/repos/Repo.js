@@ -10,17 +10,40 @@ class Repo {
     this.table = table;
   }
 
-  // Find rows in the PostgreSQL
-  async find(
-    filter = { columns: [], type: 'normal' },
-    condition = { column: '', value: '', cmp: 'eq ne gt lt' },
-    limiter = { limit: -1, offset: 0 },
-    join = {
-      tableName: '',
+  config = {
+    filter: {
+      columns: [],
+      type: 'normal',
+    },
+    condition: {
+      column: '',
+      value: '',
+      cmp: 'eq ne gt lt',
+    },
+    limiter: {
+      limit: -1,
+      offset: 0,
+    },
+    join: {
       foreignKey: '',
+      tableName: '',
       columns: [],
     },
-    returnSql = false
+  };
+
+  // Find rows in the PostgreSQL
+  async find(
+    config = {
+      filter: { columns: [], type: 'normal' },
+      condition: { column: '', value: '', cmp: 'eq ne gt lt' },
+      limiter: { limit: -1, offset: 0 },
+      join: {
+        tableName: '',
+        foreignKey: '',
+        columns: [],
+      },
+      returnSql: false,
+    }
   ) {
     // Incoming filter: columns: table cloums name in an array, type:- if passed as 'invert' fields will be subtracted from the query eg: { columns: [password], type: 'invert' } this object will return all the colums from the table except password
 
@@ -46,6 +69,10 @@ class Repo {
     // SQL output: SELECT blogs.id,blogs.title,blogs.user_id,users.username FROM blogs JOIN users ON users.id = blogs.user_id  WHERE blogs.id < '4' LIMIT '2' OFFSET '0';
 
     // This internal method will convert cmp to actual operator like =, >, < etc.
+
+    // Destructure config object
+    let { filter, condition, limiter, join, returnSql } = config;
+
     const getOperator = (op) => {
       switch (op) {
         case 'gt':
@@ -68,15 +95,23 @@ class Repo {
       }
     }
 
-    let { columns: filterCols, type } = filter;
-    let { limit, offset } = limiter;
-    let { tableName, foreignKey, columns: joinCols } = join;
+    // Destructure more if not undefined
+    let { columns: filterCols, type } = filter ? filter : (filter = {});
+    let { limit, offset } = limiter ? limiter : (limiter = {});
+    let {
+      tableName,
+      foreignKey,
+      columns: joinCols,
+    } = join ? join : (join = {});
+
+    // Final values and variables for sql command
     let sql;
     let conditionValue = '';
     let limitValue = '';
     let joinValue = '';
     let joinColumns = [];
     let filterColumns = ['*'];
+
     const globalColumns = this.columns;
     const globalTable = this.table;
 
@@ -106,7 +141,12 @@ class Repo {
     }
 
     // Check if join argument passed then create SQL JOIN statement
-    if (tableName.length > 0 && foreignKey.length > 0) {
+    if (
+      tableName &&
+      tableName.length > 0 &&
+      foreignKey &&
+      foreignKey.length > 0
+    ) {
       if (joinCols && joinCols.length > 0) {
         joinColumns = joinCols.map((c) => `${tableName}.${c}`); // eg: ['users.username']
         joinValue = format(
@@ -165,8 +205,16 @@ class Repo {
 
   // Find row by id this use the main find function
   async findById(id, filter = { columns: [], type: 'normal' }) {
-    const condtion = { column: 'id', value: id, cmp: 'eq' };
-    return this.find(filter, condtion);
+    const config = {
+      filter,
+      condition: {
+        column: 'id',
+        value: id,
+        cmp: 'eq',
+      },
+    };
+
+    return this.find(config);
   }
 
   // Insert row into the table

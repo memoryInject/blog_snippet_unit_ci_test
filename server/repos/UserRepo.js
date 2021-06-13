@@ -2,15 +2,33 @@ const Repo = require('./Repo');
 const bcrypt = require('bcryptjs');
 
 class UserRepo extends Repo {
-  async getAllUsers() {
-    return await this.find({ columns: ['password'], type: 'invert' });
+  // Login user
+  async authUser(data) {
+    const config = {
+      condition: {
+        column: 'email',
+        value: data.email,
+        cmp: 'eq',
+      },
+    };
+
+    const user = await this.find(config);
+
+    // Compare password
+    if (await bcrypt.compare(data.password, user.password)) {
+      delete user.password;
+      return user;
+    }
+
+    return null;
   }
 
-  async getUserById(id, filter = { columns: [], type: 'normal' }) {
-    return await this.findById(id, filter);
-  }
-
+  // Register a user
   async createUser(data) {
+    if (!data.password || !data.username || !data.email) {
+      throw new Error('email, password and username are required!');
+    }
+
     data.password = bcrypt.hashSync(data.password, 10);
     const row = await this.insert(data);
     if (row.password) {
@@ -18,6 +36,14 @@ class UserRepo extends Repo {
     }
 
     return row;
+  }
+
+  async getAllUsers() {
+    return await this.find({ columns: ['password'], type: 'invert' });
+  }
+
+  async getUserById(id, filter = { columns: [], type: 'normal' }) {
+    return await this.findById(id, filter);
   }
 
   async updateUser(id, data) {
@@ -45,6 +71,23 @@ class UserRepo extends Repo {
   async userCount() {
     const rows = await this.countRows();
     return parseInt(rows.count);
+  }
+
+  async getUserByEmail(email) {
+    const config = {
+      condition: {
+        column: 'email',
+        value: email,
+        cmp: 'eq',
+      },
+    };
+    let user = await this.find(config);
+
+    if (user && Object.keys(user).length) {
+      return user;
+    } else {
+      return (user = null);
+    }
   }
 }
 

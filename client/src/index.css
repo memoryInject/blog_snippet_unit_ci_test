@@ -1,23 +1,90 @@
+/*
+solarized dark color scheme:
+----------------------------
+background - #002b36 
+background:highlight - #073642
+
+primary-content - #839496
+secondary-content - #93a1a1
+optional-content:emphasis - #586e75
+
+yellow - #b58900
+orange - #cb4b16
+red - #dc322f
+magenta - #d33682
+violet - #6c71c4
+blue - #268bd2
+cyan - #2aa198
+Green - #859900
+*/
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  background-color: #212121;
-  color: #fafafa;
+  background-color: #002b36;
+  /* color: #fafafa; */
+  color: #93a1a1;
 }
 
 main {
   min-height: 80vh;
 }
 
+.input-field input[type='text'],
+.input-field input[type='text']:focus {
+  /* background-color: #212121 !important; */
+  color: #fafafa !important;
+}
+
+.input-field input[type='email'],
+.input-field input[type='email']:focus {
+  /* background-color: #212121 !important; */
+  color: #fafafa !important;
+}
+
+.input-field input[type='password'],
+.input-field input[type='password']:focus {
+  /* background-color: #212121 !important; */
+  color: #fafafa !important;
+}
+
+.dropdown-content,
+.dropdown-content li a {
+  color: #fafafa !important;
+  background-color: #002b36 !important;
+}
+.dropdown-content li:hover a:hover {
+  background-color: #073642 !important;
+}
+
+.card-color {
+  background-color: #073642 !important;
+  color: #93a1a1 !important;
+}
+
+.card-content-color {
+  background-color: #073642 !important;
+  color: #586e75 !important;
+}
+
+.card-footer-color {
+  color: #839496 !important;
+}
+
+.nav-color {
+  background-color: #073642;
+  color: #839496;
+}
+
 .sidenav,
 .sidenav li a {
   color: #fafafa !important;
-  background-color: #212121 !important;
+  background-color: #002b36 !important;
 }
 .sidenav li:hover a:hover {
-  background-color: #512da8 !important;
+  background-color: #073642 !important;
 }
 
 .micon {
@@ -26,18 +93,45 @@ main {
 }
 
 .blog-link {
-  color: #64b5f6 !important;
+  color: #268bd2 !important;
 }
 
 .blog-link:hover {
-  color: #bbdefb !important;
+  color: #2076b3 !important;
 }
 
 .btn-back {
-  background-color: #2196f3 !important;
+  background-color: #839496 !important;
   /* transform: scale(0.9); */
 }
 
 .btn-back:hover {
-  background-color: #64b5f6 !important;
+  background-color: #6f7e80 !important;
+}
+
+.alert .card-content span {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-right: 4px;
+}
+
+.btn-yellow {
+  background-color: #b58900 !important;
+}
+
+.btn-yellow:hover {
+  background-color: #9a7400 !important;
+  border-color: #916e00;
+}
+
+.form-container {
+  margin: auto;
+  max-width: 80%;
+}
+
+.material-icons {
+  font-size: 1.5em;
+  position: relative;
+  top: 5px;
+  margin-right: 0.5em;
 }

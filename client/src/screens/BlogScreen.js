@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import { listBlogDetails } from '../actions/blogActions';
 
 const BlogScreen = ({ match }) => {
-  const [blog, setBlog] = useState([]);
+  const dispatch = useDispatch();
+  const blogDetails = useSelector((state) => state.blogDetails);
+  const { loading, error, blog } = blogDetails;
 
   useEffect(() => {
-    const fetchBlog = async () => {
-      const { data } = await axios.get(`/api/blogs/${match.params.id}`);
-
-      setBlog(data);
-    };
-    fetchBlog();
-  }, [match.params.id]);
+    dispatch(listBlogDetails(match.params.id));
+  }, [dispatch, match.params.id]);
 
   return (
     <>
@@ -27,16 +28,24 @@ const BlogScreen = ({ match }) => {
           Go Back
         </Link>
       </div>
-      <div className='card grey darken-4'>
-        <div className='card-content white-text'>
-          <span className='card-title'>
-            <h4 className='center-align'>{blog.title}</h4>
-          </span>
-          <p style={{ fontSize: '1.2rem' }}>{blog.content}</p>
-          <br></br>
-          <p>by {blog.username}</p>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message type='red'>{error}</Message>
+      ) : (
+        <div className='card card-color'>
+          <div className='card-content'>
+            <span className='card-title'>
+              <h4 className='center-align'>{blog.title}</h4>
+            </span>
+            <p style={{ fontSize: '1.2rem' }} className='card-content-color'>
+              {blog.content}
+            </p>
+            <br></br>
+            <p className='card-footer-color'>By {blog.username}</p>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

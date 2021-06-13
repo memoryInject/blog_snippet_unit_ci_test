@@ -8,28 +8,26 @@ class BlogRepo extends Repo {
 
   // Get all the blogs and it's user name from postgres
   async getAllBlogsWithUser() {
-    const filter = {
-      columns: [
-        'id',
-        'created_at',
-        'updated_at',
-        'title',
-        'content',
-        'user_id',
-      ],
-      type: 'normal',
+    const config = {
+      filter: {
+        columns: [
+          'id',
+          'created_at',
+          'updated_at',
+          'title',
+          'content',
+          'user_id',
+        ],
+        type: 'normal',
+      },
+      join: {
+        tableName: 'users',
+        foreignKey: 'user_id',
+        columns: ['username'],
+      },
     };
 
-    const condition = {};
-    const limiter = {};
-
-    const join = {
-      tableName: 'users',
-      foreignKey: 'user_id',
-      columns: ['username'],
-    };
-
-    return await this.find(filter, condition, limiter, join);
+    return await this.find(config);
   }
 
   // Get a blog by id
@@ -52,15 +50,20 @@ class BlogRepo extends Repo {
       type: 'normal',
     }
   ) {
-    const condition = { column: 'id', value: id, cmp: 'eq' };
-    const limiter = {};
-
-    const join = {
-      tableName: 'users',
-      foreignKey: 'user_id',
-      columns: ['username'],
+    const config = {
+      filter,
+      condition: {
+        column: 'id',
+        value: id,
+        cmp: 'eq',
+      },
+      join: {
+        foreignKey: 'user_id',
+        tableName: 'users',
+        columns: ['username'],
+      },
     };
-    return await this.find(filter, condition, limiter, join);
+    return await this.find(config);
   }
 
   async deleteBlogById(id) {
