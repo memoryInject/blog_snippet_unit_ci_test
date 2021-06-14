@@ -27,7 +27,7 @@
     "eject": "react-scripts eject"
   },
   "jestt": {
-    "testMatch": ["**/Profile*test*" ]
+    "testMatch": ["**/Home*test*" ]
   },
   "eslintConfig": {
     "extends": [
