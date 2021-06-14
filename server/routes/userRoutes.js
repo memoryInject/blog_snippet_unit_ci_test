@@ -23,8 +23,12 @@ router
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
 
-router.route('/').get(getUsers).post(registerUser);
+router.route('/').get(protect, getUsers).post(registerUser);
 
-router.route('/:id').get(getUserById).put(updateUser).delete(deleteUser);
+router
+  .route('/:id')
+  .get(protect, getUserById)
+  .put(protect, updateUser)
+  .delete(protect, deleteUser);
 
 module.exports = router;

@@ -85,42 +85,62 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 // @dec Fetch all users
 // @route GET /api/users
-// @access Public
+// @access Private Admin Only
 const getUsers = asyncHandler(async (req, res) => {
-  const users = await UserRepo.getAllUsers();
-  res.json(users);
+  if (req.user.email === process.env.ADMIN) {
+    const users = await UserRepo.getAllUsers();
+    res.json(users);
+  } else {
+    res.status(403);
+    throw new Error('Access denied, admin only routes!');
+  }
 });
 
 // @dec Fetch a single user
 // @route GET /api/users/:id
-// @access Private
+// @access Private Admin Only
 const getUserById = asyncHandler(async (req, res) => {
-  const user = await UserRepo.getUserById(req.params.id, {
-    columns: ['password'],
-    type: 'invert',
-  });
+  if (req.user.email === process.env.ADMIN) {
+    const user = await UserRepo.getUserById(req.params.id, {
+      columns: ['password'],
+      type: 'invert',
+    });
 
-  if (user) {
-    res.json(user);
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ msg: 'User not found' });
+    }
   } else {
-    res.status(404).json({ msg: 'User not found' });
+    res.status(403);
+    throw new Error('Access denied, admin only routes!');
   }
 });
 
 // @dec update a user
 // @route PUT /api/users/id
-// @access Private
+// @access Private Admin Only
 const updateUser = asyncHandler(async (req, res) => {
-  const users = await UserRepo.updateUser(req.params.id, req.body);
-  res.json(users);
+  if (req.user.email === process.env.ADMIN) {
+    const users = await UserRepo.updateUser(req.params.id, req.body);
+    res.json(users);
+  } else {
+    res.status(403);
+    throw new Error('Access denied, admin only routes!');
+  }
 });
 
 // @dec delte a user
 // @route DELETE /api/users/:id
 // @access Private
 const deleteUser = asyncHandler(async (req, res) => {
-  const users = await UserRepo.deleteUser(req.params.id);
-  res.json(users);
+  if (req.user.email === process.env.ADMIN) {
+    const users = await UserRepo.deleteUser(req.params.id);
+    res.json(users);
+  } else {
+    res.status(403);
+    throw new Error('Access denied, admin only routes!');
+  }
 });
 
 module.exports = {

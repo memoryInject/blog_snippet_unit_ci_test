@@ -64,7 +64,7 @@ const updateBlog = asyncHandler(async (req, res) => {
     throw new Error('Blog does not exists');
   }
 
-  if (blog.userId === req.user.id) {
+  if (blog.userId === req.user.id || req.user.email === process.env.ADMIN) {
     blog = await BlogRepo.updateBlog(req.params.id, req.body);
   } else {
     res.status(403);
@@ -90,7 +90,7 @@ const deleteBlog = asyncHandler(async (req, res) => {
     throw new Error('Blog does not exists');
   }
 
-  if (blog.userId === req.user.id) {
+  if (blog.userId === req.user.id || req.user.email === process.env.ADMIN) {
     blog = await BlogRepo.deleteBlogById(req.params.id);
   } else {
     res.status(403);
