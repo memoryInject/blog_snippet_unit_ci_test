@@ -11,6 +11,9 @@ import BlogScreen from './screens/BlogScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import MyBlogsScreen from './screens/MyBlogsScreen';
+import BlogEditScreen from './screens/BlogEditScreen';
+import BlogCreateScreen from './screens/BlogCreateScreen';
 
 const App = () => {
   useEffect(() => {
@@ -26,7 +29,10 @@ const App = () => {
           <Route path='/login' component={LoginScreen} />
           <Route path='/profile' component={ProfileScreen} />
           <Route path='/register' component={RegisterScreen} />
-          <Route path='/blog/:id' component={BlogScreen} />
+          <Route path='/myblogs' component={MyBlogsScreen} />
+          <Route path='/create' component={BlogCreateScreen} />
+          <Route path='/blog/:id' component={BlogScreen} exact />
+          <Route path='/blog/:id/edit' component={BlogEditScreen} />
           <Route path='/' component={HomeScreen} exact />
         </div>
       </main>

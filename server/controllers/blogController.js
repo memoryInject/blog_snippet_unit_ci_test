@@ -24,15 +24,31 @@ const getBlogById = asyncHandler(async (req, res) => {
   }
 });
 
+// @dec get blogs by created user
+// @route PUT /api/blogs/user
+// @access Private
+const getBolgsByUser = asyncHandler(async (req, res) => {
+  const blogs = await BlogRepo.getBlogsbyUser(req.user.id);
+  if (blogs) {
+    res.json(blogs);
+  } else {
+    res.status(404);
+    throw new Error('Blog(s) not found');
+  }
+});
+
 // @dec Create a single blog
 // @route POST /api/blogs/
 // @access Private
 const createBlog = asyncHandler(async (req, res) => {
+  req.body.user_id = req.user.id;
+
   const blog = await BlogRepo.insertBlog(req.body);
+
   if (blog) {
     res.json(blog);
   } else {
-    res.status(404);
+    res.status(500);
     throw new Error('Blog can not create');
   }
 });
@@ -41,7 +57,20 @@ const createBlog = asyncHandler(async (req, res) => {
 // @route PUT /api/blogs/:id
 // @access Private
 const updateBlog = asyncHandler(async (req, res) => {
-  const blog = await BlogRepo.updateBlog(req.params.id, req.body);
+  let blog = await BlogRepo.getBlogByIdWithUser(req.params.id);
+
+  if (!blog) {
+    res.status(404);
+    throw new Error('Blog does not exists');
+  }
+
+  if (blog.userId === req.user.id) {
+    blog = await BlogRepo.updateBlog(req.params.id, req.body);
+  } else {
+    res.status(403);
+    throw new Error('Blog can not update');
+  }
+
   if (blog) {
     res.json(blog);
   } else {
@@ -54,18 +83,32 @@ const updateBlog = asyncHandler(async (req, res) => {
 // @route DELETE /api/blogs/:id
 // @access Private
 const deleteBlog = asyncHandler(async (req, res) => {
-  const blog = await BlogRepo.deleteBlogById(req.params.id);
+  let blog = await BlogRepo.getBlogByIdWithUser(req.params.id);
+
+  if (!blog) {
+    res.status(404);
+    throw new Error('Blog does not exists');
+  }
+
+  if (blog.userId === req.user.id) {
+    blog = await BlogRepo.deleteBlogById(req.params.id);
+  } else {
+    res.status(403);
+    throw new Error('Blog can not delete');
+  }
+
   if (blog) {
     res.json(blog);
   } else {
     res.status(404);
-    throw new Error('Blog can not update');
+    throw new Error('Blog can not delete');
   }
 });
 
 module.exports = {
   getBlogs,
   getBlogById,
+  getBolgsByUser,
   createBlog,
   updateBlog,
   deleteBlog,

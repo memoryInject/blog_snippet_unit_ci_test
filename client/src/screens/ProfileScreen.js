@@ -41,7 +41,9 @@ const ProfileScreen = ({ location, history }) => {
 
     if (user) {
       M.toast({
-        html: `User profile updated: ${user.username}`,
+        html: `<span class="material-icons" style="top:3px; color:#859900">
+        check
+        </span><h6 style="text-align: center">User profile updated: ${user.username}</h6>`,
         completeCallback: function () {
           buttonRef.current.removeAttribute('disabled');
           const data = { ...user };

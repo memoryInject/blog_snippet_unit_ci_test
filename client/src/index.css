@@ -49,6 +49,16 @@ main {
   /* background-color: #212121 !important; */
   color: #fafafa !important;
 }
+.input-field textarea,
+.input-field textarea:focus {
+  /* background-color: #212121 !important; */
+  color: #fafafa !important;
+}
+
+.blog-edit-textarea {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
 
 .dropdown-content,
 .dropdown-content li a {

@@ -30,6 +30,37 @@ class BlogRepo extends Repo {
     return await this.find(config);
   }
 
+  // Get blogs by its user
+  async getBlogsbyUser(userId) {
+    const config = {
+      filter: {
+        columns: [
+          'id',
+          'created_at',
+          'updated_at',
+          'title',
+          'content',
+          'user_id',
+        ],
+        type: 'normal',
+      },
+
+      condition: {
+        column: 'user_id',
+        value: userId,
+        cmp: 'eq',
+      },
+
+      join: {
+        tableName: 'users',
+        foreignKey: 'user_id',
+        columns: ['username'],
+      },
+    };
+
+    return await this.find(config);
+  }
+
   // Get a blog by id
   async getBlogById(id, filter = { columns: [], type: 'normal' }) {
     return await this.findById(id, filter);
@@ -75,6 +106,7 @@ class BlogRepo extends Repo {
   }
 
   async updateBlog(id, data) {
+    data.updated_at = 'NOW()';
     return await this.update(id, data);
   }
 

@@ -57,6 +57,11 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @route   PUT /api/users/profile
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
+  // Remove if the incoming password is empty
+  if (req.body.password === '') {
+    delete req.body.password;
+  }
+
   // If the user exists, the user profile will comes with authMiddlware
   if (req.user) {
     const user = await UserRepo.updateUser(req.user.id, req.body);

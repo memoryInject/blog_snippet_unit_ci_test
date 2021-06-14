@@ -51,6 +51,8 @@ class UserRepo extends Repo {
       data.password = bcrypt.hashSync(data.password, 10);
     }
 
+    data.updated_at = 'NOW()';
+
     const row = await this.update(id, data);
     if (row.password) {
       delete row.password;

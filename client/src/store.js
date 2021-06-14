@@ -4,7 +4,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import { blogListReducer, blogDetailsReducer } from './reducers/blogReducers';
+import {
+  blogListReducer,
+  blogDetailsReducer,
+  blogUserReducer,
+  blogCreateReducer,
+  blogUpdateReducer,
+  blogDeleteReducer,
+} from './reducers/blogReducers';
 import {
   userLoginReducer,
   userRegisterReducer,
@@ -14,6 +21,10 @@ import {
 export const reducer = combineReducers({
   blogList: blogListReducer,
   blogDetails: blogDetailsReducer,
+  blogUser: blogUserReducer,
+  blogCreate: blogCreateReducer,
+  blogUpdate: blogUpdateReducer,
+  blogDelete: blogDeleteReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userUpdate: userUpdateReducer,

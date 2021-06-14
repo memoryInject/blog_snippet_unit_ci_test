@@ -1,9 +1,11 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
+const protect = require('../middleware/authMiddleware');
 
 const {
   getBlogs,
   getBlogById,
+  getBolgsByUser,
   createBlog,
   updateBlog,
   deleteBlog,
@@ -11,8 +13,13 @@ const {
 
 const router = express.Router();
 
-router.route('/').get(getBlogs).post(createBlog);
-router.route('/:id').get(getBlogById).put(updateBlog).delete(deleteBlog);
+router.route('/').get(getBlogs).post(protect, createBlog);
+router.get('/user', protect, getBolgsByUser);
+router
+  .route('/:id')
+  .get(getBlogById)
+  .put(protect, updateBlog)
+  .delete(protect, deleteBlog);
 
 // TEST ONLY
 router.get(

@@ -6,10 +6,16 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import { listBlogDetails } from '../actions/blogActions';
 
-const BlogScreen = ({ match }) => {
+const BlogScreen = ({ match, location }) => {
   const dispatch = useDispatch();
   const blogDetails = useSelector((state) => state.blogDetails);
   const { loading, error, blog } = blogDetails;
+
+  const redirect = location.search
+    ? location.search.split('=')[1] === 'undefined'
+      ? '/'
+      : location.search.split('=')[1]
+    : '/';
 
   useEffect(() => {
     dispatch(listBlogDetails(match.params.id));
@@ -18,7 +24,7 @@ const BlogScreen = ({ match }) => {
   return (
     <>
       <div style={{ margin: '5px auto' }}>
-        <Link to='/' className='btn waves-effect waves-light btn-back'>
+        <Link to={redirect} className='btn waves-effect waves-light btn-back'>
           <span
             className='material-icons'
             style={{ position: 'relative', top: '6px' }}
