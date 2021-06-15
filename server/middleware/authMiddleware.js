@@ -30,4 +30,13 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 });
 
-module.exports = protect;
+const admin = asyncHandler(async (req, res, next) => {
+  if (req.user.email === process.env.ADMIN) {
+    next();
+  } else {
+    res.status(401);
+    throw new Error('Admin only access!');
+  }
+});
+
+module.exports = { protect, admin };

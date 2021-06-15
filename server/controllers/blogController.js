@@ -55,7 +55,7 @@ const createBlog = asyncHandler(async (req, res) => {
 
 // @dec update a single blog
 // @route PUT /api/blogs/:id
-// @access Private
+// @access Private and Admin
 const updateBlog = asyncHandler(async (req, res) => {
   let blog = await BlogRepo.getBlogByIdWithUser(req.params.id);
 
@@ -81,7 +81,7 @@ const updateBlog = asyncHandler(async (req, res) => {
 
 // @dec delete a single blog
 // @route DELETE /api/blogs/:id
-// @access Private
+// @access Private and Admin
 const deleteBlog = asyncHandler(async (req, res) => {
   let blog = await BlogRepo.getBlogByIdWithUser(req.params.id);
 

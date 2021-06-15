@@ -12,7 +12,7 @@ const {
   deleteUser,
 } = require('../controllers/userController');
 
-const protect = require('../middleware/authMiddleware');
+const { protect, admin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
@@ -23,12 +23,12 @@ router
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
 
-router.route('/').get(protect, getUsers).post(registerUser);
+router.route('/').get(protect, admin, getUsers).post(registerUser);
 
 router
   .route('/:id')
-  .get(protect, getUserById)
-  .put(protect, updateUser)
-  .delete(protect, deleteUser);
+  .get(protect, admin, getUserById)
+  .put(protect, admin, updateUser)
+  .delete(protect, admin, deleteUser);
 
 module.exports = router;
