@@ -145,3 +145,27 @@ main {
   top: 5px;
   margin-right: 0.5em;
 }
+
+/* pagination */
+.active-page a {
+  background-color: #9a7400;
+  color: #fafafa !important;
+}
+
+.inactive-page a {
+  /* background-color: #9a7400; */
+  color: #839496 !important;
+}
+
+.disabled-arrow {
+  color: #444;
+}
+
+.enabled-arrow a i {
+  color: #9a7400 !important;
+}
+
+.float-left {
+  right: auto !important;
+  left: 23px !important;
+}

@@ -59,7 +59,10 @@ beforeEach(async () => {
   store = makeTestStore();
 
   await store.dispatch({ type: 'USER_LOGIN_SUCCESS', payload: userData });
-  await store.dispatch({ type: 'BLOG_USER_SUCCESS', payload: userBlogs });
+  await store.dispatch({
+    type: 'BLOG_USER_SUCCESS',
+    payload: { blogs: userBlogs },
+  });
 
   testRender(
     <Router>

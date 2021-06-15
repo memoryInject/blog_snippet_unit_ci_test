@@ -1,21 +1,21 @@
-import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 
 const AddBtn = ({ path }) => {
-  const [hover, setHover] = useState(true);
-  const elems = useRef(null);
+  const addBtn = useRef(null);
   useEffect(() => {
-    if (hover === true) {
-      setHover(false);
-    }
-  }, [hover]);
-
+    const timerId = setTimeout(() => {
+      addBtn.current.classList.remove('pulse');
+    }, 0);
+    return () => clearTimeout(timerId);
+  }, [addBtn]);
   return (
-    <div ref={elems} className='fixed-action-btn'>
+    <div className='fixed-action-btn'>
       <Link
         to={`/create?redirect=${path}`}
-        className='btn-floating btn-yellow btn-large darken-1'
+        className='btn-floating btn-yellow btn-large darken-1 pulse'
         title='Add new blog'
+        ref={addBtn}
       >
         <i className='large material-icons' style={{ top: '0px' }}>
           add

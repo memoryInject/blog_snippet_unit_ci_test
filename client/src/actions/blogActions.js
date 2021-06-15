@@ -20,26 +20,28 @@ import {
   BLOG_USER_SUCCESS,
 } from '../constants/blogConstants';
 
-export const listBlogs = () => async (dispatch) => {
-  try {
-    dispatch({ type: BLOG_LIST_REQUEST });
+export const listBlogs =
+  (pageNumber = '') =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: BLOG_LIST_REQUEST });
 
-    const { data } = await axios.get('/api/blogs');
+      const { data } = await axios.get(`/api/blogs?pageNumber=${pageNumber}`);
 
-    dispatch({
-      type: BLOG_LIST_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: BLOG_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: BLOG_LIST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: BLOG_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const listBlogDetails = (id) => async (dispatch) => {
   try {
@@ -62,36 +64,41 @@ export const listBlogDetails = (id) => async (dispatch) => {
   }
 };
 
-export const listUserBlogs = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: BLOG_USER_REQUEST });
+export const listUserBlogs =
+  (pageNumber = '') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: BLOG_USER_REQUEST });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+      const {
+        userLogin: { userInfo },
+      } = getState();
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
 
-    const { data } = await axios.get('/api/blogs/user', config);
+      const { data } = await axios.get(
+        `/api/blogs/user?pageNumber=${pageNumber}`,
+        config
+      );
 
-    dispatch({
-      type: BLOG_USER_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: BLOG_USER_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: BLOG_USER_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: BLOG_USER_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const createBlog = (blog) => async (dispatch, getState) => {
   try {

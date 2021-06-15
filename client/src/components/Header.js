@@ -1,12 +1,14 @@
 import { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import M from 'materialize-css';
 
 import { logout } from '../actions/userActions';
 
 const Header = () => {
   const dispatch = useDispatch();
+
+  const location = useLocation();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -111,7 +113,7 @@ const Header = () => {
       {/* Dorpdown structure */}
       <ul id='dropdown1' className='dropdown-content'>
         <li>
-          <Link to='/profile'>Profile</Link>
+          <Link to={`/profile?redirect=${location.pathname}`}>Profile</Link>
         </li>
         <li className='divider'></li>
         <li>
@@ -131,7 +133,7 @@ const Header = () => {
               <Link to='/myblogs'>My Blogs</Link>
             </li>
             <li>
-              <Link to='/profile'>Profile</Link>
+              <Link to={`/profile?redirect=${location.pathname}`}>Profile</Link>
             </li>
             <li>
               <a href='#!' onClick={logoutHandler}>

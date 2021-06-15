@@ -6,27 +6,30 @@ import Blog from '../components/Blog';
 import AddBtn from '../components/AddBtn';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Pagination from '../components/Pagination';
 
 import { listUserBlogs } from '../actions/blogActions';
 import { BLOG_DELETE_CLEAR } from '../constants/blogConstants';
 
-const MyBlogsScreen = ({ history, location }) => {
+const MyBlogsScreen = ({ history, location, match }) => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   const blogUser = useSelector((state) => state.blogUser);
-  const { loading, error, blogs } = blogUser;
+  const { loading, error, blogs, page, pages } = blogUser;
 
   const blogDelete = useSelector((state) => state.blogDelete);
   const { loading: deleteLoading, error: deleteError, success } = blogDelete;
+
+  const pageNumber = match.params.pageNumber || 1;
 
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
     } else {
-      dispatch(listUserBlogs());
+      dispatch(listUserBlogs(pageNumber));
     }
 
     if (success) {
@@ -38,7 +41,7 @@ const MyBlogsScreen = ({ history, location }) => {
         </span><h6 style="text-align: center">Blog deleted!</h6>`,
       });
     }
-  }, [userInfo, history, dispatch, success]);
+  }, [userInfo, history, dispatch, success, pageNumber]);
 
   return (
     <div>
@@ -81,6 +84,7 @@ const MyBlogsScreen = ({ history, location }) => {
           )}
         </ul>
       )}
+      {pages > 1 && <Pagination page={page} pages={pages} path='/myblogs' />}
     </div>
   );
 };

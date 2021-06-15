@@ -33,6 +33,10 @@ let store;
 
 const location = {};
 
+const match = {
+  params: { pageNumber: 1 },
+};
+
 const userBlogs = [
   {
     title: 'test blog title 1',
@@ -66,12 +70,12 @@ beforeEach(async () => {
   store = makeTestStore();
 
   await store.dispatch({ type: 'USER_LOGIN_SUCCESS', payload: userData });
-  await axios.get.mockResolvedValueOnce({ data: userBlogs });
+  await axios.get.mockResolvedValueOnce({ data: { blogs: userBlogs } });
 
   testRender(
     <Router>
       <DisplayState />
-      <HomeScreen location={location} />
+      <HomeScreen location={location} match={match} />
     </Router>,
     {
       store,

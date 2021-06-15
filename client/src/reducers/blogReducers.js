@@ -28,7 +28,12 @@ export const blogListReducer = (state = { blogs: [] }, action) => {
     case BLOG_LIST_REQUEST:
       return { loading: true, blogs: [] };
     case BLOG_LIST_SUCCESS:
-      return { loading: false, blogs: action.payload };
+      return {
+        loading: false,
+        blogs: action.payload.blogs,
+        page: action.payload.page,
+        pages: action.payload.pages,
+      };
     case BLOG_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
@@ -54,7 +59,12 @@ export const blogUserReducer = (state = { blogs: [] }, action) => {
     case BLOG_USER_REQUEST:
       return { loading: true, blogs: [] };
     case BLOG_USER_SUCCESS:
-      return { loading: false, blogs: action.payload };
+      return {
+        loading: false,
+        blogs: action.payload.blogs,
+        page: action.payload.page,
+        pages: action.payload.pages,
+      };
     case BLOG_USER_FAIL:
       return { loading: false, error: action.payload };
     case BLOG_USER_CLEAR:

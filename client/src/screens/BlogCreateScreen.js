@@ -5,6 +5,8 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import BlogEdit from '../components/BlogEdit';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import BackBtn from '../components/BackBtn';
+
 import { BLOG_CREATE_CLEAR } from '../constants/blogConstants';
 
 const BlogCreateScreen = ({ history, location }) => {
@@ -37,6 +39,8 @@ const BlogCreateScreen = ({ history, location }) => {
   return (
     <div>
       <h3 className='center-align'>Create Blog</h3>
+      <BackBtn redirect={redirect} />
+
       {loading && <Loader />}
       {error && <Message>{error}</Message>}
       {userInfo && <BlogEdit author={userInfo.username} />}

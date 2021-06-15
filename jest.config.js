@@ -3,6 +3,7 @@ const config = {
   testPathIgnorePatterns: ['/client/'],
   moduleDirectories: ['node_modules'],
   modulePathIgnorePatterns: ['<rootDir>/client'],
+  // testMatch: ['**/blogRoutes*test*'],
 };
 
 module.exports = config;

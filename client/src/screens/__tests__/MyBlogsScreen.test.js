@@ -33,6 +33,9 @@ let store;
 
 const location = {};
 const history = { push: function () {} };
+const match = {
+  params: { pageNumber: 1 },
+};
 
 const userBlogs = [
   {
@@ -61,12 +64,12 @@ beforeEach(async () => {
   store = makeTestStore();
 
   await store.dispatch({ type: 'USER_LOGIN_SUCCESS', payload: userData });
-  await axios.get.mockResolvedValueOnce({ data: userBlogs });
+  await axios.get.mockResolvedValueOnce({ data: { blogs: userBlogs } });
 
   testRender(
     <Router>
       <DisplayState />
-      <MyBlogsScreen location={location} history={history} />
+      <MyBlogsScreen location={location} history={history} match={match} />
     </Router>,
     {
       store,
@@ -77,7 +80,7 @@ beforeEach(async () => {
 describe("Show user's blogs and delete one", () => {
   // Put async and store update test above any silly tests
   // otherwise it breaks
-  it('when form is submitted, dispach updateBlog and update a  blog', async () => {
+  it('delete a  blog', async () => {
     const blogData = {
       title: 'test blog title 2 update',
       content: 'test blog content 2 update',

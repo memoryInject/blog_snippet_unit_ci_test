@@ -29,11 +29,17 @@ const App = () => {
           <Route path='/login' component={LoginScreen} />
           <Route path='/profile' component={ProfileScreen} />
           <Route path='/register' component={RegisterScreen} />
-          <Route path='/myblogs' component={MyBlogsScreen} />
+          <Route path='/myblogs' component={MyBlogsScreen} exact />
+          <Route
+            path='/myblogs/page/:pageNumber'
+            component={MyBlogsScreen}
+            exact
+          />
           <Route path='/create' component={BlogCreateScreen} />
           <Route path='/blog/:id' component={BlogScreen} exact />
           <Route path='/blog/:id/edit' component={BlogEditScreen} />
           <Route path='/' component={HomeScreen} exact />
+          <Route path='/page/:pageNumber' component={HomeScreen} exact />
         </div>
       </main>
       <Footer />

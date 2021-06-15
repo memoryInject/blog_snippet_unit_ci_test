@@ -5,6 +5,8 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import BlogEdit from '../components/BlogEdit';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import BackBtn from '../components/BackBtn';
+
 import { BLOG_UPDATE_CLEAR } from '../constants/blogConstants';
 
 const BlogEditScreen = ({ history, location, match }) => {
@@ -18,6 +20,8 @@ const BlogEditScreen = ({ history, location, match }) => {
 
   const blogUpdate = useSelector((state) => state.blogUpdate);
   const { loading, error, success } = blogUpdate;
+
+  const redirect = location.search ? location.search.split('=')[1] : '/';
 
   const [editBlog, setEditBlog] = useState(null);
 
@@ -50,6 +54,8 @@ const BlogEditScreen = ({ history, location, match }) => {
   return (
     <div>
       <h3 className='center-align'>Edit Blog</h3>
+      <BackBtn redirect={redirect} />
+
       {loading && <Loader />}
       {error && <Message>{error}</Message>}
       {editBlog && userInfo && (

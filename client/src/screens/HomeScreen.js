@@ -6,19 +6,22 @@ import Blog from '../components/Blog';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import AddBtn from '../components/AddBtn';
+import Pagination from '../components/Pagination';
 
-const HomeScreen = ({ location }) => {
+const HomeScreen = ({ location, match }) => {
   const dispatch = useDispatch();
 
   const blogList = useSelector((state) => state.blogList);
-  const { loading, error, blogs } = blogList;
+  const { loading, error, blogs, page, pages } = blogList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const pageNumber = match.params.pageNumber || 1;
+
   useEffect(() => {
-    dispatch(listBlogs());
-  }, [dispatch]);
+    dispatch(listBlogs(pageNumber));
+  }, [dispatch, pageNumber]);
 
   return (
     <div>
@@ -38,6 +41,7 @@ const HomeScreen = ({ location }) => {
                   title={blog.title}
                   author={blog.username}
                   blogId={blog.id}
+                  path={location.pathname}
                 />
               </li>
             ))
@@ -47,11 +51,13 @@ const HomeScreen = ({ location }) => {
                 title={blogs.title}
                 author={blogs.username}
                 blogId={blogs.id}
+                path={location.pathname}
               />
             </li>
           )}
         </ul>
       )}
+      {pages > 1 && <Pagination page={page} pages={pages} />}
     </div>
   );
 };

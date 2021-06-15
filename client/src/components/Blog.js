@@ -45,7 +45,10 @@ const Blog = ({ title, author, blogId, edit, path }) => {
                 delete_forever
               </span>
             </Link>
-            <Link to={`/blog/${blogId}/edit`} className='blog-link-edit right'>
+            <Link
+              to={`/blog/${blogId}/edit?redirect=${path}`}
+              className='blog-link-edit right'
+            >
               <span
                 className='material-icons'
                 style={{

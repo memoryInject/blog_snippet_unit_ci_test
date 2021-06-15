@@ -7,7 +7,16 @@ class BlogRepo extends Repo {
   }
 
   // Get all the blogs and it's user name from postgres
-  async getAllBlogsWithUser() {
+  async getAllBlogsWithUser(pageSize = 5, page = 1) {
+    const { count } = await this.countRows();
+    const pages = Math.ceil(count / pageSize);
+
+    // Check if the page is greater than total pages
+    page = page > pages ? pages : page;
+
+    // Check if the page is less than 1
+    page = page < 1 ? 1 : page;
+
     const config = {
       filter: {
         columns: [
@@ -25,14 +34,21 @@ class BlogRepo extends Repo {
         foreignKey: 'user_id',
         columns: ['username'],
       },
+      limiter: {
+        limit: pageSize,
+        offset: pageSize * (page - 1),
+      },
     };
 
-    return await this.find(config);
+    const blogs = await this.find(config);
+
+    return { blogs, page, pages };
   }
 
   // Get blogs by its user
-  async getBlogsbyUser(userId) {
-    const config = {
+  async getBlogsbyUser(userId, pageSize = 5, page = 1) {
+    // Config for getting all blogs by the user
+    let config = {
       filter: {
         columns: [
           'id',
@@ -58,7 +74,58 @@ class BlogRepo extends Repo {
       },
     };
 
-    return await this.find(config);
+    let count = await this.find(config);
+
+    if (Array.isArray(count)) {
+      count = count.length;
+    } else {
+      count = 1;
+    }
+
+    // Total page
+    const pages = Math.ceil(count / pageSize);
+
+    // Check if the page is greater than total pages
+    page = page > pages ? pages : page;
+
+    // Check if the page is less than 1
+    page = page < 1 ? 1 : page;
+
+    // Config for getting all blogs by the user with limit
+    config = {
+      filter: {
+        columns: [
+          'id',
+          'created_at',
+          'updated_at',
+          'title',
+          'content',
+          'user_id',
+        ],
+        type: 'normal',
+      },
+
+      condition: {
+        column: 'user_id',
+        value: userId,
+        cmp: 'eq',
+      },
+
+      join: {
+        tableName: 'users',
+        foreignKey: 'user_id',
+        columns: ['username'],
+      },
+      limiter: {
+        limit: pageSize,
+        offset: pageSize * (page - 1),
+      },
+    };
+
+    // Get blogs by the user with limit
+    const blogs = await this.find(config);
+
+    return { blogs, page, pages };
   }
 
   // Get a blog by id

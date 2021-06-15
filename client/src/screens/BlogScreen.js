@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import BackBtn from '../components/BackBtn';
+
 import { listBlogDetails } from '../actions/blogActions';
 
 const BlogScreen = ({ match, location }) => {
   const dispatch = useDispatch();
+
   const blogDetails = useSelector((state) => state.blogDetails);
   const { loading, error, blog } = blogDetails;
 
@@ -23,17 +26,7 @@ const BlogScreen = ({ match, location }) => {
 
   return (
     <>
-      <div style={{ margin: '5px auto' }}>
-        <Link to={redirect} className='btn waves-effect waves-light btn-back'>
-          <span
-            className='material-icons'
-            style={{ position: 'relative', top: '6px' }}
-          >
-            arrow_back_ios
-          </span>
-          Go Back
-        </Link>
-      </div>
+      <BackBtn redirect={redirect} />
       {loading ? (
         <Loader />
       ) : error ? (

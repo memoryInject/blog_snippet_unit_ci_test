@@ -12,6 +12,8 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  process.env.JWT_SECRET = 'abc1234';
+  process.env.ADMIN = 'admin@example.com';
   await context.reset();
   user = {
     username: 'John Doe',
@@ -27,7 +29,7 @@ afterAll(() => {
 it('can create a user', async () => {
   const startingCount = await UserRepo.userCount();
 
-  await request(app()).post('/api/users').send(user).expect(200);
+  await request(app()).post('/api/users').send(user).expect(201);
 
   const finishCount = await UserRepo.userCount();
   expect(finishCount - startingCount).toEqual(1);
@@ -35,34 +37,54 @@ it('can create a user', async () => {
 
 it('check a user', async () => {
   const {
-    body: { id },
+    body: { id, token },
   } = await request(app()).post('/api/users').send(user);
 
   const {
     body: { email },
-  } = await request(app()).get(`/api/users/${id}`);
-  expect(email).toEqual(email);
+  } = await request(app())
+    .get(`/api/users/profile`)
+    .set('Authorization', 'Bearer ' + token);
+  expect(email).toEqual(user.email);
 });
 
 it('can update a user', async () => {
   const {
-    body: { id },
+    body: { id, token },
   } = await request(app()).post('/api/users').send(user);
 
   user.email = 'doe@example.com';
   const {
     body: { email },
-  } = await request(app()).put(`/api/users/${id}`).send({ email: user.email });
+  } = await request(app())
+    .put(`/api/users/profile`)
+    .set('Authorization', 'Bearer ' + token)
+    .send({ email: user.email });
   expect(email).toEqual(user.email);
 });
 
-it('can delete a user', async () => {
+it('admin can delete a user', async () => {
+  const admin = {
+    username: 'admin',
+    email: 'admin@example.com',
+    password: '123456',
+  };
+
+  // Create admin
+  const {
+    body: { token },
+  } = await request(app()).post('/api/users').send(admin);
+
+  // Create a user
   const {
     body: { id },
   } = await request(app()).post('/api/users').send(user);
 
+  // Delete a user with admin token
   const {
     body: { email },
-  } = await request(app()).delete(`/api/users/${id}`);
-  expect(email).toEqual(email);
+  } = await request(app())
+    .delete(`/api/users/${id}`)
+    .set('Authorization', 'Bearer ' + token);
+  expect(email).toEqual(user.email);
 });
