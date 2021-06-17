@@ -1,17 +1,11 @@
 const pool = require('./pool');
 const colors = require('colors');
 
-const connectDB = async () => {
+const connectDB = async (config) => {
   try {
     const {
       rows: [conn],
-    } = await pool.connect({
-      host: 'localhost',
-      port: 5432,
-      database: 'blogs_dev',
-      user: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-    });
+    } = await pool.connect(config);
 
     console.log(
       `Postgres Connected: ${conn.boot_val}:${conn.current_database} on ${conn.now}`

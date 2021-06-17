@@ -30,9 +30,14 @@ const BlogEditScreen = ({ history, location, match }) => {
       history.push('/login');
     }
 
-    const getBlog = blogs.filter(
-      (blog) => blog.id === parseInt(match.params.id)
-    )[0];
+    let getBlog;
+    if (Array.isArray(blogs)) {
+      getBlog = blogs.filter(
+        (blog) => blog.id === parseInt(match.params.id)
+      )[0];
+    } else {
+      getBlog = blogs;
+    }
 
     setEditBlog(getBlog);
 

@@ -14,6 +14,10 @@ class UserRepo extends Repo {
 
     const user = await this.find(config);
 
+    if (!user) {
+      throw new Error('User not found!');
+    }
+
     // Compare password
     if (await bcrypt.compare(data.password, user.password)) {
       delete user.password;

@@ -9,13 +9,18 @@
     "test-client": "npm test --prefix client -- --watchAll=false",
     "test": "concurrently \"npm run test-server\" \"npm run test-client\"",
     "server": "nodemon server/server",
+    "server-test": "cross-env NODE_ENV=test nodemon server/server",
     "client": "npm start --prefix client",
+    "client-test": "cross-env BROWSER=none npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev-test": "concurrently \"npm run server-test\" \"npm run client-test\"",
     "migrate": "node-pg-migrate",
     "migrate-up": "npm run migrate up",
     "migrate-up-one": "npm run migrate-up 1",
     "migrate-down": "npm run migrate down",
     "migrate-down-all": "npm run migrate-down 0",
+    "migrate-up-test": "cross-env DATABASE_URL=postgres://postgres:1234@localhost:5432/blogs_test npm run migrate up",
+    "migrate-down-test": "cross-env DATABASE_URL=postgres://postgres:1234@localhost:5432/blogs_test npm run migrate-down 0",
     "create-table-users": "npm run migrate create table users",
     "create-table-blogs": "npm run migrate create table blogs",
     "insert-user-data": "node ./data/insert-users.js",
@@ -23,7 +28,10 @@
     "insert-blog-data": "node ./data/insert-blogs.js",
     "destroy-blog-data": "node ./data/insert-blogs.js -d",
     "data-import": "npm run insert-user-data && npm run insert-blog-data",
-    "data-destroy": "npm run destroy-user-data && npm run destroy-blog-data"
+    "data-destroy": "npm run destroy-user-data && npm run destroy-blog-data",
+    "data-import-test": "cross-env NODE_ENV=test npm run insert-user-data && cross-env NODE_ENV=test npm run insert-blog-data",
+    "data-destroy-test": "cross-env NODE_ENV=test npm run destroy-user-data && cross-env NODE_ENV=test npm run destroy-blog-data",
+    "cypress-open": ".\\node_modules\\.bin\\cypress open"
   },
   "author": "Mahesh",
   "license": "MIT",
@@ -44,6 +52,9 @@
   },
   "devDependencies": {
     "concurrently": "^6.2.0",
+    "cross-env": "^7.0.3",
+    "cypress": "^7.5.0",
+    "cypress-dark": "^1.7.14",
     "nodemon": "^2.0.7"
   }
 }

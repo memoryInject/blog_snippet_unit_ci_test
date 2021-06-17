@@ -52,10 +52,12 @@ const MyBlogsScreen = ({ history, location, match }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        error === 'Blog(s) not found' && (
+        error === 'Blog(s) not found' ? (
           <Message type='teal lighten-2'>
             No blogs created yet, create a new blog by press +.
           </Message>
+        ) : (
+          <Message>{error}</Message>
         )
       ) : (
         <ul>

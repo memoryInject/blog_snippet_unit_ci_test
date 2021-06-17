@@ -12,7 +12,12 @@ const getBlogs = asyncHandler(async (req, res) => {
   // This will comes with blogs, page and pages (total page number)
   const data = await BlogRepo.getAllBlogsWithUser(pageSize, page);
 
-  res.json(data);
+  if (data.blogs) {
+    res.json(data);
+  } else {
+    res.status(404);
+    throw new Error('Blog(s) not found!');
+  }
 });
 
 // @dec Fetch a single blog
@@ -29,7 +34,7 @@ const getBlogById = asyncHandler(async (req, res) => {
 });
 
 // @dec get blogs by created user
-// @route PUT /api/blogs/user
+// @route GET /api/blogs/user
 // @access Private
 const getBolgsByUser = asyncHandler(async (req, res) => {
   const pageSize = 5;
@@ -37,8 +42,7 @@ const getBolgsByUser = asyncHandler(async (req, res) => {
 
   // This will comes with blogs, page and pages (total page number)
   const blogs = await BlogRepo.getBlogsbyUser(req.user.id, pageSize, page);
-
-  if (blogs) {
+  if (blogs.blogs) {
     res.json(blogs);
   } else {
     res.status(404);
