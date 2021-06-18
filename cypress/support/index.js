@@ -20,8 +20,8 @@ import './commands';
 // require('./commands')
 
 // Activate theme
-require('cypress-dark/src/halloween');
-// require('cypress-dark');
+// require('cypress-dark/src/halloween');
+require('cypress-dark');
 
 const apiUrl = Cypress.env('apiUrl');
 
@@ -42,4 +42,60 @@ Cypress.Commands.add('registerUserIfNeeded', (options = {}) => {
     },
     failOnStatusCode: false,
   });
+});
+
+// Login user via UI
+Cypress.Commands.add('login', (user = Cypress.env('user')) => {
+  cy.visit('/login');
+  cy.contains('Email').type(user.email);
+  cy.contains('Password').type(user.password);
+  cy.get('.btn').contains('Login').click();
+
+  // When we are logged in, there should be name visible
+  // on nav bar
+  cy.get('[data-target=dropdown1]')
+    .contains(user.username)
+    .should('be.visible');
+});
+
+// Get logged in token
+Cypress.Commands.add('getToken', (user = Cypress.env('user')) => {
+  return cy
+    .request({
+      method: 'POST',
+      url: `${apiUrl}/api/users/login`,
+      body: {
+        email: user.email,
+        password: user.password,
+      },
+      failOnStatusCode: false,
+    })
+    .its('body.token')
+    .should('exist');
+});
+
+// Create a blog
+Cypress.Commands.add('createBlog', () => {
+  cy.getToken().then((token) => {
+    const authorization = `Bearer ${token}`;
+
+    const newBlog = {
+      title: 'Test blog title',
+      content: 'Test blog content',
+    };
+
+    const options = {
+      method: 'POST',
+      url: `${apiUrl}/api/blogs`,
+      headers: {
+        authorization,
+      },
+      body: {
+        ...newBlog,
+      },
+    };
+
+    cy.request(options).its('status').should('eq', 200);
+  });
+  ``;
 });

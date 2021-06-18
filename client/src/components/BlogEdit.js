@@ -103,12 +103,12 @@ const BlogEdit = ({ id, title, content, author, update }) => {
                 <div className='input-field col s12'>
                   <textarea
                     ref={textareaElem}
-                    id='textarea1'
+                    id='blog-content'
                     className='materialize-textarea'
                     value={blogContent}
                     onChange={(e) => setBlogContent(e.target.value)}
                   ></textarea>
-                  <label htmlFor='textarea1' className='active'>
+                  <label htmlFor='blog-content' className='active'>
                     Blog Content
                   </label>
                 </div>

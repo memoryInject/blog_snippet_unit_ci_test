@@ -48,7 +48,9 @@ const ProfileScreen = ({ location, history }) => {
         check
         </span><h6 style="text-align: center">User profile updated: ${user.username}</h6>`,
         completeCallback: function () {
-          buttonRef.current.removeAttribute('disabled');
+          if (buttonRef.current) {
+            buttonRef.current.removeAttribute('disabled');
+          }
           const data = { ...user };
 
           dispatch({ type: USER_UPDATE_CLEAR });
