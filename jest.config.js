@@ -1,6 +1,6 @@
 const config = {
   verbose: true,
-  testPathIgnorePatterns: ['/client/'],
+  testPathIgnorePatterns: ['/client/', '/cypress/'],
   moduleDirectories: ['node_modules'],
   modulePathIgnorePatterns: ['<rootDir>/client'],
   // testMatch: ['**/blogRoutes*test*'],
