@@ -26,9 +26,11 @@ jobs:
           name: Run server
           command: npm run server-test
           background: true
+          
       - run:
-          name: Check server connection
-          command: curl --connect-timeout 50 --max-time 100 --retry 5 --retry-delay 0 --retry-max-time 40 --retry-connrefused 'localhost:5000'
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
       - run:
           name: Run Tests
           command: npm run test
