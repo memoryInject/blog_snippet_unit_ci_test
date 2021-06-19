@@ -34,14 +34,13 @@ jobs:
       - run:
           name: Wait for db
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
-      
-      - run:
-          name: test envs
-          command: echo $DATABASE_NAME
 
       - run:
-          name: Run Tests
+          name: Run database migration
           command: npm run migrate-up
+      - run:
+          name: Seed database
+          command: npm run data-import-test
 
 workflows:
   orb-free-workflow:
