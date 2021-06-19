@@ -8,6 +8,8 @@ const data = require(`./${table}`);
 
 const pool = new pg.Pool(config);
 
+console.log(...config);
+
 if (process.argv[2] === '-d') {
   pool
     .query(`DELETE FROM ${table}`)
