@@ -6,8 +6,9 @@ jobs:
       - image: cimg/node:15.1
       - image: circleci/postgres:9.6.2-alpine
         environment:
-          POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-          POSTGRES_DB: $DATABASE_NAME
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 1234
+          POSTGRES_DB: blogs_test
     steps:
       - checkout
       - restore_cache:
