@@ -38,7 +38,7 @@ jobs:
 
       - run:
           name: Run Tests
-          command: npm run migrate-up-test
+          command: npm run migrate-up
 
 workflows:
   orb-free-workflow:
