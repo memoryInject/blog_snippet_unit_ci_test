@@ -37,7 +37,7 @@ jobs:
 
       - run:
           name: Run database migration
-          command: cross-env DATABASE_URL=postgres://postgres@localhost:5432/blogs_test npm run migrate up"
+          command: cross-env DATABASE_URL=postgres://postgres@localhost:5432/blogs_test npm run migrate up
       - run:
           name: Seed database
           command: npm run data-import-test
