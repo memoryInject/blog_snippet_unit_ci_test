@@ -9,7 +9,7 @@ const data = require(`./${table}`);
 const pool = new pg.Pool(config);
 
 
-pool.query('SELECT NOW()', (err, res) => {
+pool.query('SELECT * FROM users', (err, res) => {
   console.log(err, res)
 })
 
