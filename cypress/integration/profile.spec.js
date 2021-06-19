@@ -36,7 +36,7 @@ describe('Profile', () => {
     cy.get('#nav-mobile').should('contain', 'Login');
   });
 
-  it.only('can update my profile', () => {
+  it('can update my profile', () => {
     // New user name and email
     const username = 'update testuser';
     const email = 'updateuser@test.com';

@@ -35,6 +35,7 @@ describe('Blog', () => {
 
   it('can create a blog and read the created blog for logged in user', () => {
     cy.login();
+    cy.wait(100);
     cy.get('#nav-mobile').contains('My Blogs').should('be.visible');
     cy.get('#nav-mobile').contains('My Blogs').click();
     cy.get('.alert')
@@ -64,7 +65,7 @@ describe('Blog', () => {
   it('can update a blog for logged in user', () => {
     cy.createBlog();
     cy.login();
-
+    cy.wait(100);
     cy.get('#nav-mobile').contains('My Blogs').click();
 
     // Check the new blog in my blogs
@@ -86,9 +87,10 @@ describe('Blog', () => {
     cy.contains('update blog title').should('be.visible');
   });
 
-  it.only('can delete a blog for logged in user', () => {
+  it('can delete a blog for logged in user', () => {
     cy.createBlog();
     cy.login();
+    cy.wait(100);
 
     cy.get('#nav-mobile').contains('My Blogs').click();
     cy.get('.blog-link-del').click();
