@@ -8,7 +8,10 @@ const data = require(`./${table}`);
 
 const pool = new pg.Pool(config);
 
-console.log({...config});
+
+pool.query('SELECT NOW()', (err, res) => {
+  console.log(err, res)
+})
 
 if (process.argv[2] === '-d') {
   pool
