@@ -69,7 +69,7 @@ jobs:
           command: |
               apt update -y
               apt install -y lsof
-              lsof -v 
+              lsof -i:3000 
       - run:
           name: Run test dev servers
           command: npm run dev-test
