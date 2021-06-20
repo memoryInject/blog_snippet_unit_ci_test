@@ -58,7 +58,7 @@ jobs:
           command: npm run data-import-test 
       - run:
           name: Kill server
-          command: sudo kill node
+          command: sudo pkill -f node
       - run:
           name: Test server
           command: npm run test-server           
