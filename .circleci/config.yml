@@ -64,6 +64,9 @@ jobs:
           name: Run test dev servers
           command: npm run dev-test
           background: true
+      - run:
+          name: Install cypress dependencies
+          command: sudo apt-get update && sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - run:  
           name: Cypress tests
           command: ./node_modules/.bin/cypress run
