@@ -62,8 +62,9 @@ jobs:
       - run:
           name: Run test dev servers
           command: npm run dev-test
-      - run:
-          name: Run cypress tests
+          background: true
+      - run:  
+          name: Cypress tests
           command: ./node_modules/.bin/cypress run
 
 workflows:
