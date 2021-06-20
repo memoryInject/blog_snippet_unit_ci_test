@@ -72,7 +72,7 @@ jobs:
               lsof -v
       - run:
           name: Kill port 3000
-          command: sudo lsof -i :3000 -t
+          command: whereis sudo
       
       - run:
           name: Run test dev servers
