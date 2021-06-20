@@ -65,10 +65,15 @@ jobs:
           name: Run test dev servers
           command: npm run dev-test
           background: true
+      - run:
+          name: cypress
+          command: ./node_modules/.bin/cypress run
 
 workflows:
   orb-free-workflow:
     jobs:
+      - cypress/install
       - test
-      - cypress/run
+      
         
+ 
