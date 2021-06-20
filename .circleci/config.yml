@@ -66,7 +66,10 @@ jobs:
           command: pkill -f node
       - run:
           name: Check port 3000
-          command: add-apt-repository universe multiverse && apt-get update && apt-get install net-tools && netstat -lpn |grep :'3000'
+          command: | 
+            apt-get install software-properties-common
+            apt-get update
+            add-apt-repository universe multiverse && apt-get update && apt-get install net-tools && netstat -lpn |grep :'3000'
       - run:
           name: Run test dev servers
           command: npm run dev-test
