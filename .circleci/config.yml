@@ -11,15 +11,12 @@ jobs:
      
     steps:
       - checkout
-      - run:
-          name: Create cache directory
-          command: mkdir -p ~/.npm/client && touch ~/.npm/client/package-lock.json
       - restore_cache:
           # See the configuration reference documentation for more details on using restore_cache and save_cache steps
           # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
           keys:
-            - node-deps-v3-{{ .Branch }}-{{checksum "~/.npm/client/package-lock.json"}}
-            - node-deps-v3-
+            - node-deps-v4-{{ .Branch }}-{{checksum "/client/package-lock.json"}}
+            - node-deps-v4-
       - run:
           name: install packages client
           command: |
@@ -27,9 +24,9 @@ jobs:
             cd client
             npm install
       - save_cache:
-          key: node-deps-v3-{{ .Branch }}-{{checksum "~/.npm/client/package-lock.json"}}
+          key: node-deps-v4-{{ .Branch }}-{{checksum "package-lock.json"}}
           paths:
-            - ~/.npm/client/node_modules
+            - client/node_modules
       - run:
           name: install packages server
           command: |
