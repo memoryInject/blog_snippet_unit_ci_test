@@ -34,7 +34,6 @@ jobs:
           name: install packages server
           command: |
             ls
-            cd ..
             npm install 
 
       - run:
