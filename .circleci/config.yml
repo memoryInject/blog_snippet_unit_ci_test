@@ -55,7 +55,13 @@ jobs:
           command: npm run migrate up
       - run:
           name: Seed database
-          command: npm run data-import-test    
+          command: npm run data-import-test 
+      - run:
+          name: Kill server
+          command: kill $(lsof -t -i:5000)
+      - run:
+          name: Test server
+          command: npm run test-server           
 
 workflows:
   orb-free-workflow:
