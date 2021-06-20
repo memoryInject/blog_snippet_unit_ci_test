@@ -20,8 +20,8 @@ jobs:
           # See the configuration reference documentation for more details on using restore_cache and save_cache steps
           # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
           keys:
-            - node-deps-v4-{{ .Branch }}-{{checksum "client/package-lock.json"}}
-            - node-deps-v4-
+            - node-deps-v5-{{ .Branch }}-{{checksum "client/package-lock.json"}}
+            - node-deps-v5-
       - run:
           name: install packages client
           command: |
@@ -29,20 +29,20 @@ jobs:
             cd client
             npm install
       - save_cache:
-          key: node-deps-v4-{{ .Branch }}-{{checksum "package-lock.json"}}
+          key: node-deps-v5-{{ .Branch }}-{{checksum "package-lock.json"}}
           paths:
             - client/node_modules
       - restore_cache:
           keys:
-            - server-v2-{{ .Branch }}-{{checksum "package-lock.json"}}
-            - server-v2-
+            - server-v3-{{ .Branch }}-{{checksum "package-lock.json"}}
+            - server-v3-
       - run:
           name: install packages server
           command: |
             ls
             npm install 
       - save_cache:
-          key: server-v2-{{ .Branch }}-{{checksum "package-lock.json"}}
+          key: server-v3-{{ .Branch }}-{{checksum "package-lock.json"}}
           paths:
             - node_modules
             - /home/circleci/.cache/Cypress
