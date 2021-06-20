@@ -70,10 +70,9 @@ jobs:
               apt update -y
               apt install -y lsof
               lsof -v
-              lsof -i
       - run:
           name: Kill port 3000
-          command: lsof -i
+          command: lsof -i:3000
       
       - run:
           name: Run test dev servers
