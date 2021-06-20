@@ -34,18 +34,18 @@ jobs:
             - client/node_modules
       - restore_cache:
           keys:
-            - server-v5-{{ .Branch }}-{{checksum "package-lock.json"}}
-            - server-v5-
+            - server-v6-{{ .Branch }}-{{checksum "package-lock.json"}}
+            - server-v6-
       - run:
           name: install packages server
           command: |
             ls
             npm install 
       - save_cache:
-          key: server-v5-{{ .Branch }}-{{checksum "package-lock.json"}}
+          key: server-v6-{{ .Branch }}-{{checksum "package-lock.json"}}
           paths:
             - node_modules
-            - /home/circleci/.cache/Cypress
+            - /root/.cache/Cypress
       - run:
           name: Run server
           command: npm run server-test
