@@ -70,6 +70,5 @@ workflows:
   orb-free-workflow:
     jobs:
       - test
-  build:
-      jobs:
-        - cypress/run
+      - cypress/run
+        
