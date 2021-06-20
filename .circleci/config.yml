@@ -65,6 +65,9 @@ jobs:
           name: Kill server
           command: pkill -f node
       - run:
+          name: Check port 3000
+          command: netstat -lpn |grep :'3000'
+      - run:
           name: Run test dev servers
           command: npm run dev-test
           background: true
