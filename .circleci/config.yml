@@ -19,7 +19,7 @@ jobs:
           # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
           keys:
             - node-deps-v1-{{ .Branch }}-{{checksum "~/.npm/client/package-lock.json"}}
-            - v1-deps-v1-
+            - node-deps-v1-
       - run:
           name: install packages client
           command: npm install --prefix client
