@@ -58,7 +58,7 @@ jobs:
           command: npm run data-import-test 
       - run:
           name: Kill server
-          command: kill $(sudo lsof -t -i:5000)
+          command: sudo apt-get install lsof -y && kill $(sudo lsof -t -i:5000)
       - run:
           name: Test server
           command: npm run test-server           
