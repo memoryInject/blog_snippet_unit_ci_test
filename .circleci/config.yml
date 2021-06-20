@@ -20,8 +20,8 @@ jobs:
           # See the configuration reference documentation for more details on using restore_cache and save_cache steps
           # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
           keys:
-            - node-deps-v6-{{ .Branch }}-{{checksum "client/package-lock.json"}}
-            - node-deps-v6-
+            - node-deps-v7-{{ .Branch }}-{{checksum "client/package-lock.json"}}
+            - node-deps-v7-
       - run:
           name: install packages client
           command: |
@@ -29,20 +29,20 @@ jobs:
             cd client
             npm install
       - save_cache:
-          key: node-deps-v6-{{ .Branch }}-{{checksum "package-lock.json"}}
+          key: node-deps-v7-{{ .Branch }}-{{checksum "package-lock.json"}}
           paths:
             - client/node_modules
       - restore_cache:
           keys:
-            - server-v4-{{ .Branch }}-{{checksum "package-lock.json"}}
-            - server-v4-
+            - server-v5-{{ .Branch }}-{{checksum "package-lock.json"}}
+            - server-v5-
       - run:
           name: install packages server
           command: |
             ls
             npm install 
       - save_cache:
-          key: server-v4-{{ .Branch }}-{{checksum "package-lock.json"}}
+          key: server-v5-{{ .Branch }}-{{checksum "package-lock.json"}}
           paths:
             - node_modules
             - /home/circleci/.cache/Cypress
@@ -65,16 +65,6 @@ jobs:
           name: Kill server
           command: pkill -f node
       - run:
-          name: Install lsof
-          command: |
-              apt update -y
-              apt install -y lsof
-              lsof -v
-      - run:
-          name: Kill port 3000
-          command: cat /etc/hosts
-
-      - run:
           name: Run test dev servers
           command: npm run dev-test
           background: true
@@ -82,9 +72,8 @@ jobs:
           name: Run test
           command: npm run test
       - run:
-          name: Run Sleep
-          command: sleep 70          
-
+          name: Run cypress test
+          command: ./node_modules/.bin/cypress run          
 
 workflows:
   orb-free-workflow:
