@@ -60,8 +60,8 @@ jobs:
           name: Kill server
           command: sudo pkill -f node
       - run:
-          name: Test server
-          command: npm run test-server           
+          name: Test server and client with jest
+          command: npm run test       
 
 workflows:
   orb-free-workflow:
