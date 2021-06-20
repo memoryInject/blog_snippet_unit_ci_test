@@ -22,14 +22,20 @@ jobs:
             - node-deps-v2-
       - run:
           name: install packages client
-          command: cd client && npm install
+          command: |
+            ls
+            cd client
+            npm install
       - save_cache:
           key: node-deps-v2-{{ .Branch }}-{{checksum "~/.npm/client/package-lock.json"}}
           paths:
             - ~/.npm/client/node_modules
       - run:
           name: install packages server
-          command: cd ../ && npm install
+          command: |
+            ls
+            cd ..
+            npm install 
 
       - run:
           name: Run server
