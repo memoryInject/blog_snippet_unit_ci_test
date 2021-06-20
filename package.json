@@ -11,7 +11,7 @@
     "server": "nodemon server/server",
     "server-test": "cross-env NODE_ENV=test nodemon server/server",
     "client": "npm start --prefix client",
-    "client-test": "cross-env BROWSER=none npm start --prefix client",
+    "client-test": "cross-env BROWSER=none PORT=3006 npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "dev-test": "concurrently \"npm run server-test\" \"npm run client-test\"",
     "migrate": "node-pg-migrate",
