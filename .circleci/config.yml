@@ -81,6 +81,9 @@ jobs:
       - run:
           name: Run test
           command: npm run test
+      - run:
+          name: Run Sleep
+          command: sleep 70          
 
 
 workflows:
