@@ -63,7 +63,7 @@ jobs:
           command: npm run data-import-test 
       - run:
           name: Kill server
-          command: sudo killall -f node
+          command: apt-get install pkill && pkill -f node
       - run:
           name: Run test dev servers
           command: npm run dev-test
