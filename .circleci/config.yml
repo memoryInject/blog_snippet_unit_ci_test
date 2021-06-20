@@ -73,6 +73,9 @@ jobs:
       - run:
           name: Kill port 3000
           command: apt install sudo -y && sudo lsof -t -i:3000 
+      - run:
+          name: Show port 3000
+          command: sudo lsof -t -i:3000     
       
       - run:
           name: Run test dev servers
