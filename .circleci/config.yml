@@ -63,7 +63,7 @@ jobs:
           command: npm run data-import-test 
       - run:
           name: Kill server
-          command: apt-get install procps && pkill -f node
+          command: pkill -f node
       - run:
           name: Run test dev servers
           command: npm run dev-test
