@@ -27,12 +27,19 @@ jobs:
           key: node-deps-v4-{{ .Branch }}-{{checksum "package-lock.json"}}
           paths:
             - client/node_modules
+      - restore_cache:
+          keys:
+            - server-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
+            - server-v1-
       - run:
           name: install packages server
           command: |
             ls
             npm install 
-
+      - save_cache:
+          key: server-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
+          paths:
+            - node_modules
       - run:
           name: Run server
           command: npm run server-test
