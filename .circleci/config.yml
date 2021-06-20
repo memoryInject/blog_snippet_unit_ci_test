@@ -13,7 +13,7 @@ jobs:
       - checkout
       - run:
           name: Create cache directory
-          command: mkdir ~/.npm/client
+          command: mkdir -p ~/.npm/client
       - restore_cache:
           # See the configuration reference documentation for more details on using restore_cache and save_cache steps
           # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
