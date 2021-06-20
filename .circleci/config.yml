@@ -25,7 +25,7 @@ jobs:
       - save_cache:
           key: node-deps-v1-{{ .Branch }}-{{checksum "~/.npm/client/package-lock.json"}}
           paths:
-            - ~/.npm/client
+            - ~/.npm/client/node_modules
       - run:
           name: install packages server
           command: npm install
