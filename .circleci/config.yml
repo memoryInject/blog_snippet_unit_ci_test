@@ -55,6 +55,9 @@ jobs:
       - run:
           name: Seed database
           command: npm run data-import-test
+      - run:
+          name: Run jest test
+          command: npm run server-test     
 
 workflows:
   orb-free-workflow:
