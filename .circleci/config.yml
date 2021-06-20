@@ -1,6 +1,5 @@
 version: 2.1
-orbs:
-  cypress: cypress-io/cypress@1
+
 jobs:
   test:
     docker:
@@ -65,7 +64,8 @@ jobs:
           name: Run test dev servers
           command: npm run dev-test
           background: true
-
+orbs:
+  cypress: cypress-io/cypress@1
 workflows:
   build:
     jobs:
