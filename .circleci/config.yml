@@ -72,11 +72,8 @@ jobs:
               lsof -v
       - run:
           name: Kill port 3000
-          command: apt install sudo -y && sudo lsof -t -i:3000 
-      - run:
-          name: Show port 3000
-          command: sudo lsof -t -i:3000     
-      
+          command: npx kill-port 3000 && npx kill-port 3000 && npx kill-port 3000
+
       - run:
           name: Run test dev servers
           command: npm run dev-test
