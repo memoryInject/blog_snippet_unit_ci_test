@@ -65,12 +65,16 @@ jobs:
           name: Kill server
           command: pkill -f node
       - run:
-          name: Kill port 3000
+          name: Install lsof
           command: |
               apt update -y
               apt install -y lsof
               lsof -v
               lsof -i
+      - run:
+          name: Kill port 3000
+          command: lsof -i
+      
       - run:
           name: Run test dev servers
           command: npm run dev-test
