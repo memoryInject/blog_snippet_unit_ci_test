@@ -68,6 +68,9 @@ jobs:
           name: Run test dev servers
           command: npm run dev-test
           background: true
+      - run:
+          name: Run test
+          command: npm run test
 
 
 workflows:
