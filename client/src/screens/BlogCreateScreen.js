@@ -6,6 +6,7 @@ import BlogEdit from '../components/BlogEdit';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import BackBtn from '../components/BackBtn';
+import Meta from '../components/Meta';
 
 import { BLOG_CREATE_CLEAR } from '../constants/blogConstants';
 
@@ -38,6 +39,8 @@ const BlogCreateScreen = ({ history, location }) => {
 
   return (
     <div>
+      <Meta title='BlogSnippet | CreateBlog' />
+
       <h3 className='center-align'>Create Blog</h3>
       <BackBtn redirect={redirect} />
 

@@ -6,6 +6,7 @@ import BlogEdit from '../components/BlogEdit';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import BackBtn from '../components/BackBtn';
+import Meta from '../components/Meta';
 
 import { BLOG_UPDATE_CLEAR } from '../constants/blogConstants';
 
@@ -58,7 +59,9 @@ const BlogEditScreen = ({ history, location, match }) => {
 
   return (
     <div>
+      <Meta title='BlogSnippet | EditBlog' />
       <h3 className='center-align'>Edit Blog</h3>
+
       <BackBtn redirect={redirect} />
 
       {loading && <Loader />}

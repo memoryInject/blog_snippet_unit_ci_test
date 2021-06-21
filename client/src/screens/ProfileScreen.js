@@ -5,6 +5,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import BackBtn from '../components/BackBtn';
+import Meta from '../components/Meta';
 
 import { update } from '../actions/userActions';
 import {
@@ -88,6 +89,7 @@ const ProfileScreen = ({ location, history }) => {
 
   return (
     <div className='form-container'>
+      <Meta title='BlogSnippet | Profile' />
       <BackBtn redirect={redirect} />
 
       <div className='row'>

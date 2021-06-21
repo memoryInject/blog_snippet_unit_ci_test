@@ -7,6 +7,7 @@ import Loader from '../components/Loader';
 import Message from '../components/Message';
 import AddBtn from '../components/AddBtn';
 import Pagination from '../components/Pagination';
+import Meta from '../components/Meta';
 
 const HomeScreen = ({ location, match }) => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const HomeScreen = ({ location, match }) => {
 
   return (
     <div>
+      <Meta />
       <h3 className='center-align'>Blogs</h3>
       {userInfo && <AddBtn path={location.pathname} />}
 

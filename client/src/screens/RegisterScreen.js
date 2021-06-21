@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../actions/userActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 
 const RegisterScreen = ({ location, history }) => {
   const [username, setUsername] = useState('');
@@ -40,6 +41,7 @@ const RegisterScreen = ({ location, history }) => {
 
   return (
     <div className='form-container'>
+      <Meta title='BlogSnippet | Register' />
       <div className='row'>
         <form className='col s12'>
           <h3>REGISTER</h3>

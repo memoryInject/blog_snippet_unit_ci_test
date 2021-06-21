@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions/userActions';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('');
@@ -30,6 +31,7 @@ const LoginScreen = ({ location, history }) => {
 
   return (
     <div className='form-container'>
+      <Meta title='BlogSnippet | Login' />
       <div className='row'>
         <form className='col s12'>
           <h3>LOGIN</h3>

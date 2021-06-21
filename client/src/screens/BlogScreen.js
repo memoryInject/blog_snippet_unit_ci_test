@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import BackBtn from '../components/BackBtn';
+import Meta from '../components/Meta';
 
 import { listBlogDetails } from '../actions/blogActions';
 
@@ -33,6 +34,7 @@ const BlogScreen = ({ match, location }) => {
         <Message type='red'>{error}</Message>
       ) : (
         <div className='card card-color'>
+          <Meta title={blog.title} />
           <div className='card-content'>
             <span className='card-title'>
               <h4 className='center-align'>{blog.title}</h4>

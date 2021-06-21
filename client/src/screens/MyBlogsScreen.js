@@ -7,6 +7,7 @@ import AddBtn from '../components/AddBtn';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Pagination from '../components/Pagination';
+import Meta from '../components/Meta';
 
 import { listUserBlogs } from '../actions/blogActions';
 import { BLOG_DELETE_CLEAR } from '../constants/blogConstants';
@@ -45,6 +46,7 @@ const MyBlogsScreen = ({ history, location, match }) => {
 
   return (
     <div>
+      <Meta title='BlogSnippet | MyBlogs' />
       <h3 className='center-align'>My Blogs</h3>
       <AddBtn path={location.pathname} />
       {deleteLoading && <Loader />}
