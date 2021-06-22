@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
@@ -46,10 +47,19 @@ module.exports = () => {
   // Enable cors
   app.use(cors());
 
-  app.get('/', (req, res) => res.send('api is running'));
-
   app.use('/api/users', userRoutes);
   app.use('/api/blogs', blogRoutes);
+
+  // Serve client page
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(process.cwd(), 'client/build')));
+
+    app.get('*', (req, res) =>
+      res.sendFile(path.resolve(process.cwd(), 'client', 'build', 'index.html'))
+    );
+  } else {
+    app.get('/', (req, res) => res.send('api is running'));
+  }
 
   app.use(notFound);
   app.use(errorHandler);

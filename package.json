@@ -11,7 +11,7 @@
     "server": "nodemon server/server",
     "server-test": "cross-env NODE_ENV=test nodemon server/server",
     "client": "npm start --prefix client",
-    "client-test": "cross-env BROWSER=none npm start --prefix client",
+    "client-test": "cross-env BROWSER=none PORT=3006 npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "dev-test": "concurrently \"npm run server-test\" \"npm run client-test\"",
     "migrate": "node-pg-migrate",
@@ -31,7 +31,9 @@
     "data-destroy": "npm run destroy-user-data && npm run destroy-blog-data",
     "data-import-test": "cross-env NODE_ENV=test npm run insert-user-data && cross-env NODE_ENV=test npm run insert-blog-data",
     "data-destroy-test": "cross-env NODE_ENV=test npm run destroy-user-data && cross-env NODE_ENV=test npm run destroy-blog-data",
-    "cypress-open": ".\\node_modules\\.bin\\cypress open"
+    "cypress-open": ".\\node_modules\\.bin\\cypress open",
+    "swap-env":"mv .env tmp && mv .env.production.local .env && mv tmp .env.production.local",
+    "build": "cross-env INLINE_RUNTIME_CHUNK=false npm run build --prefix client"
   },
   "author": "Mahesh",
   "license": "MIT",
