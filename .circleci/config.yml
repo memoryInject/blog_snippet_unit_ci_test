@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  heroku: circleci/heroku@0.0.10. # Invoke the Heroku orb
+
 jobs:
   test:
     docker:
@@ -72,9 +75,15 @@ jobs:
           command: npm run test
       - run:
           name: Run cypress test
-          command: ./node_modules/.bin/cypress run
+          command: ./node_modules/.bin/cypress run --record --key da752f1c-8d75-465b-bf14-fcbf13c7fc1c
 
 workflows:
-  orb-free-workflow:
+  heroku_deploy:
     jobs:
       - test
+      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+          requires:
+            - test
+          filters:
+            branches:
+              only: main
