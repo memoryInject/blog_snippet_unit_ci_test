@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  heroku: circleci/heroku@1.2.6 # Invoke the Heroku orb
-
 jobs:
   test:
     docker:
@@ -16,6 +13,7 @@ jobs:
           POSTGRES_DB: blogs_test
           POSTGRES_PASSWORD: 1234
 
+     
     steps:
       - checkout
       - restore_cache:
@@ -42,7 +40,7 @@ jobs:
           name: install packages server
           command: |
             ls
-            npm install
+            npm install 
       - save_cache:
           key: server-v6-{{ .Branch }}-{{checksum "package-lock.json"}}
           paths:
@@ -52,17 +50,17 @@ jobs:
           name: Run server
           command: npm run server-test
           background: true
-
+          
       - run:
           name: Wait for db
-          command: while netstat -lnt | awk '$4 ~ /:5000$/ {exit 1}'; do sleep 0.1; done
-
+          command: while netstat -lnt | awk '$4 ~ /:5000$/ {exit 1}'; do sleep 0.1; done 
+            
       - run:
           name: Run database migration
           command: npm run migrate up
       - run:
           name: Seed database
-          command: npm run data-import-test
+          command: npm run data-import-test 
       - run:
           name: Kill server
           command: pkill -f node
@@ -75,15 +73,12 @@ jobs:
           command: npm run test
       - run:
           name: Run cypress test
-          command: ./node_modules/.bin/cypress run --record --key da752f1c-8d75-465b-bf14-fcbf13c7fc1c
+          command: ./node_modules/.bin/cypress run --record --key $CYPRESS_KEY        
 
 workflows:
-  heroku_deploy:
+  orb-free-workflow:
     jobs:
       - test
-      - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
-          requires:
-            - test
-          filters:
-            branches:
-              only: main
+      
+        
+ 
