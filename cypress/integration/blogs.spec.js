@@ -20,7 +20,7 @@ describe('Blog', () => {
     cy.exec('npm run migrate-down-test');
   });
 
-  it('can read artile without logged in', () => {
+  it('can read article without logged in', () => {
     cy.get('.blog-link').should('contain', 'Read More');
 
     // Get the first element with read more
@@ -54,6 +54,7 @@ describe('Blog', () => {
     cy.contains('Submit').click();
 
     // After submit
+    cy.wait(100);
     cy.contains('Test blog title').should('be.visible');
     cy.get('.btn-back').click();
 
